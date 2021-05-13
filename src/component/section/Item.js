@@ -19,8 +19,6 @@ import { useAlert } from "react-alert";
 import { handleAddToBagItem } from "../../actions/functions";
 import { handleAddToFavorites } from "../../actions/HandleAddToFavorites";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import userEvent from "@testing-library/user-event";
-
 const useStyles = makeStyles({
   new: {
     float: "right",
@@ -48,15 +46,17 @@ const Item = (props) => {
   useEffect(() => {
     getBrandLogo(photo);
   }, [photo]);
+
   useEffect(()=>{
+    if (user.data){
     user.data.favorites.map((item)=>{
       if(item.itemId===itemId){
         setIconColor("secondary")
         setIsFave(true);
       }
-    // (item.itemId===itemId?setIconColor("action"):)
   })
-  },[])
+}
+  },[user])
   
   return (
     <Card className={classes.card}>
